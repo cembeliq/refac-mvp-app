@@ -1,22 +1,13 @@
+const express = require('express');
+
 const controller = require('../controllers/auth.controller');
 
-module.exports = (app) => {
-  app.use((req, res, next) => {
-    res.header(
-      'Access-Control-Allow-Headers',
-      'x-access-token, Origin, Content-Type, Accept',
-    );
-    next();
-  });
+// Set The Express Router
+const router = express.Router();
 
-  app.post(
-    '/api/auth/register',
-    // [
-    //   verifySignUp.checkDuplicateUsernameOrEmail,
-    //   verifySignUp.checkRolesExisted
-    // ],
-    controller.register,
-  );
+router.post('/register', controller.register);
+router.post('/login', controller.login);
+router.get('/emailVerify/:email', controller.emailVerify);
 
-  app.post('/api/auth/login', controller.login);
-};
+// Export the Router
+module.exports = router;

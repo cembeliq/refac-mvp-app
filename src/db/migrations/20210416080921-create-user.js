@@ -18,6 +18,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING(100),
+        unique: true,
       },
       email_verified_at: {
         type: Sequelize.DATE,

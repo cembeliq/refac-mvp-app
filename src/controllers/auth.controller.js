@@ -18,7 +18,7 @@ exports.register = (req, res) => {
     const emailPayload = {};
 
     emailPayload.email = user.email;
-    emailPayload.urlVerify = `${process.env.BASE_URL}${Buffer.from(user.email).toString('base64')}`;
+    emailPayload.urlVerify = `${process.env.BASE_URL}/auth/emailVerify/${Buffer.from(user.email).toString('base64')}`;
 
     sendMailRegister(emailPayload);
 
@@ -77,4 +77,31 @@ exports.login = (req, res) => {
       },
     });
   });
+};
+
+exports.emailVerify = (req, res) => {
+  const { email } = req.params;
+  const decodeEmail = Buffer.from(email, 'base64').toString('ascii');
+
+  User.findOne({
+    where: { email: decodeEmail },
+  }).then((user) => {
+    if (!user) {
+      return res.status(404).send({ status: 'fail', message: 'User tidak ditemukan' });
+    }
+    if (user.email_verified_at != null) {
+      return res.status(404).send({ status: 'fail', message: 'Email telah diverifikasi' });
+    }
+
+    return User.update({ email_verified_at: Date.now(), updated_at: Date.now() }, {
+      where: {
+        email: decodeEmail,
+      },
+    }).then((num) => {
+      if (num > 0) {
+        return res.send({ status: 'success', message: 'Update success' });
+      }
+      return res.status(404).send({ status: 'fail', message: `Tidak dapat update dengan email=${decodeEmail}` });
+    }).catch((err) => res.status(500).send({ status: 'fail', message: err.message }));
+  }).catch((err) => res.status(500).send({ status: 'fail', message: err.message }));
 };
