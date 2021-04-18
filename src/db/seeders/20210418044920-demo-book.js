@@ -7,7 +7,7 @@ const arrBook = (cat) => {
       description: 'description',
       author: 'cembeliq',
       year: '2022',
-      idCategory: cat,
+      id_category: cat,
       stock: 100,
       status: 'tersedia',
       created_at: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),

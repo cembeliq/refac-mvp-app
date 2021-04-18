@@ -15,6 +15,7 @@ const router = express.Router();
 
 // Load The Routes
 router.use('/auth', require('./auth.route'));
+router.use('/catalog', require('./catalog.route'));
 
 // Export Router
 module.exports = router;

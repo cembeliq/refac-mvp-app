@@ -15,7 +15,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DOUBLE,
       },
-      idLoan: {
+      id_loan: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },

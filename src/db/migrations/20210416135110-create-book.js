@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      idCategory: {
+      id_category: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
