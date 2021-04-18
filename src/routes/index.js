@@ -1,4 +1,5 @@
 const express = require('express');
+const { authJwt } = require('../middleware');
 
 const app = express();
 
@@ -15,7 +16,7 @@ const router = express.Router();
 
 // Load The Routes
 router.use('/auth', require('./auth.route'));
-router.use('/catalog', require('./catalog.route'));
+router.use('/catalog', [authJwt.verifyToken, authJwt.isAdmin], require('./catalog.route'));
 
 // Export Router
 module.exports = router;
