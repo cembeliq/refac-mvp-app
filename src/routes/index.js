@@ -16,6 +16,8 @@ router.use((req, res, next) => {
 router.use('/auth', require('./auth.route'));
 router.use('/catalog', [authJwt.verifyToken, authJwt.isAdmin], require('./catalog.route'));
 router.use('/category', [authJwt.verifyToken, authJwt.isAdmin], require('./category.route'));
+router.use('/loan', [authJwt.verifyToken, authJwt.isAdmin], require('./loan.route'));
+router.use('/finepayment', [authJwt.verifyToken, authJwt.isAdmin], require('./finepayment.route'));
 
 // The 404 Route (ALWAYS Keep this as the last route)
 router.use((req, res) => {

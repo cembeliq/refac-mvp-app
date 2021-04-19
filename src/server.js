@@ -13,6 +13,9 @@ const corsOption = {
   origin: ['http://cembeliq.com', 'http://172.17.0.2:8081'],
 };
 
+// process.env.TZ = 'Asia/Jakarta';
+// console.log('Zona waktu diset ke: ', process.env.TZ);
+
 app.use(cors(corsOption));
 app.get('/', (req, res) => {
   res.send('Hello world!');
