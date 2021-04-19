@@ -25,13 +25,17 @@ const verifyToken = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   User.findByPk(req.userId).then((user) => {
-    console.log(user.role);
-    if (user.role === 'admin') {
-      return next();
-    }
+    if (user != null) {
+      if (user.role === 'admin') {
+        return next();
+      }
 
-    return res.status(403).send({
-      message: 'Require Admin Role!',
+      return res.status(403).send({
+        message: 'Require Admin Role!',
+      });
+    }
+    return res.status(401).send({
+      message: 'Token expired!',
     });
   });
 };

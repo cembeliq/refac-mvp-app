@@ -15,17 +15,25 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DOUBLE,
       },
-      id_loan: {
+      idLoan: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        field: 'id_loan',
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'updated_at',
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       Book.belongsTo(models.category, {
         foreignKey: 'id_category',
         targetKey: 'id',
-      }); // Adds fk_companyname to User
+      });
     }
   }
   Book.init({

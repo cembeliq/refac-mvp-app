@@ -7,36 +7,44 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      id_user: {
+      idUser: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        field: 'id_user',
       },
-      id_book: {
+      idBook: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        field: 'id_book',
       },
-      borrowed_date: {
+      borrowedDate: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'borrowed_date',
       },
-      due_date: {
+      dueDate: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'due_date',
       },
-      return_date: {
+      returnDate: {
         type: Sequelize.DATE,
+        field: 'return_date',
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

@@ -23,9 +23,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      id_category: {
+      idCategory: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        field: 'id_category',
       },
       stock: {
         allowNull: false,
@@ -35,17 +36,20 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },
