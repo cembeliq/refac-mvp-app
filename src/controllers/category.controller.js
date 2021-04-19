@@ -1,16 +1,15 @@
 const db = require('../models');
 
-const Book = db.book;
 const Category = db.category;
 
-const createBook = async (req, res) => {
+const createCategory = async (req, res) => {
   try {
-    const book = await Book.create(req.body);
+    const category = await Category.create(req.body);
     return res.status(201).send({
       status: 'success',
-      message: 'tambah buku berhasil',
+      message: 'tambah kategori berhasil',
       data: {
-        idBook: book.id,
+        idCategory: category.id,
       },
     });
   } catch (err) {
@@ -21,25 +20,25 @@ const createBook = async (req, res) => {
   }
 };
 
-const updateBook = async (req, res) => {
+const updateCategory = async (req, res) => {
   try {
-    const book = await Book.update(req.body, {
+    const category = await Category.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
-    if (book > 0) {
+    if (category > 0) {
       return res.status(200).send({
         status: 'success',
-        message: 'update buku berhasil',
+        message: 'update kategori berhasil',
         data: {
-          idBook: req.params.id,
+          idCategory: req.params.id,
         },
       });
     }
     return res.status(404).send({
       status: 'fail',
-      message: 'update buku tidak berhasil. data tidak ditemukan',
+      message: 'update kategori tidak berhasil. data tidak ditemukan',
       data: {
       },
     });
@@ -51,25 +50,25 @@ const updateBook = async (req, res) => {
   }
 };
 
-const deleteBook = async (req, res) => {
+const deleteCategory = async (req, res) => {
   try {
-    const book = await Book.destroy({
+    const category = await Category.destroy({
       where: {
         id: req.params.id,
       },
     });
-    if (book > 0) {
+    if (category > 0) {
       return res.status(200).send({
         status: 'success',
-        message: 'delete buku berhasil',
+        message: 'delete kategori berhasil',
         data: {
-          idBook: req.params.id,
+          idCategory: req.params.id,
         },
       });
     }
     return res.status(404).send({
       status: 'fail',
-      message: 'delete buku tidak berhasil. data tidak ditemukan',
+      message: 'delete kategori tidak berhasil. data tidak ditemukan',
       data: {
       },
     });
@@ -81,14 +80,12 @@ const deleteBook = async (req, res) => {
   }
 };
 
-const getAllBook = async (req, res) => {
+const getAllCategory = async (req, res) => {
   try {
-    const books = await Book.findAll({
-      include: [{ model: Category }],
-    });
+    const books = await Category.findAll({});
     return res.send({
       status: 'success',
-      message: 'get all data book',
+      message: 'get all data category',
       data: books,
     });
   } catch (err) {
@@ -99,25 +96,23 @@ const getAllBook = async (req, res) => {
   }
 };
 
-const getBookById = async (req, res) => {
+const getCategoryById = async (req, res) => {
   try {
-    const book = await Book.findOne({
+    const category = await Category.findOne({
       where: {
         id: req.params.id,
       },
-      attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] },
-      include: [{ model: Category, attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] } }],
     });
-    if (book != null) {
+    if (category != null) {
       return res.send({
         status: 'success',
-        message: 'get book',
-        data: book,
+        message: 'get kategori',
+        data: category,
       });
     }
     return res.status(404).send({
       status: 'fail',
-      message: 'get buku tidak berhasil. data tidak ditemukan',
+      message: 'get kategori tidak berhasil. data tidak ditemukan',
       data: {
       },
     });
@@ -130,9 +125,9 @@ const getBookById = async (req, res) => {
 };
 
 module.exports = {
-  createBook,
-  updateBook,
-  deleteBook,
-  getAllBook,
-  getBookById,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  getAllCategory,
+  getCategoryById,
 };

@@ -4,6 +4,12 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
+    static associate(models) {
+      Book.belongsTo(models.category, {
+        foreignKey: 'id_category',
+        targetKey: 'id',
+      }); // Adds fk_companyname to User
+    }
   }
   Book.init({
     title: DataTypes.TEXT,
@@ -16,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'book',
+    // underscored: true,
   });
   return Book;
 };

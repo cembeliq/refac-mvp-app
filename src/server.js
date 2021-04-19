@@ -20,7 +20,6 @@ app.get('/', (req, res) => {
 
 require('dotenv').config({ path: path.resolve('./.env') });
 
-// require(`${__dirname}/routes/auth.route`)(app);
 app.use('/api', require('./routes'));
 
 app.listen(port, () => {
