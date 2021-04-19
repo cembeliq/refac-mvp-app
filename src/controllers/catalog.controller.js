@@ -1,7 +1,9 @@
+const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
 const Book = db.book;
 const Category = db.category;
+const seq = db.sequelize;
 
 const createBook = async (req, res) => {
   try {
@@ -129,10 +131,30 @@ const getBookById = async (req, res) => {
   }
 };
 
+const getBookLessThan2Years = async (req, res) => {
+  const yearNow = new Date().getFullYear();
+
+  try {
+    const books = await seq.query('SELECT a.*, b.id as `category.id`, b.name as `category.name` FROM book a join category b on a.id_category = b.id where a.year >= ? limit 20',
+      {
+        // model: Book,
+        // mapToModel: true,
+        replacements: [yearNow - 2],
+        type: QueryTypes.SELECT,
+        nest: true,
+        // raw: true,
+      });
+    return res.send({ status: 'success', message: 'query berhasil', data: books });
+  } catch (err) {
+    return res.send({ status: 'fail', message: err.message });
+  }
+};
+
 module.exports = {
   createBook,
   updateBook,
   deleteBook,
   getAllBook,
   getBookById,
+  getBookLessThan2Years,
 };
