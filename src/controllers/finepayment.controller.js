@@ -12,7 +12,7 @@ const returnBook = async (req, res) => {
         id: idLoan,
       },
     });
-    // console.log(countBorrowed);
+
     if (getLoan == null) {
       return res.status(403).send({
         status: 'fail',

@@ -1,13 +1,12 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const corsOption = {
   origin: ['http://cembeliq.com', 'http://172.17.0.2:8081'],
