@@ -1,5 +1,8 @@
 const express = require('express');
-const upload = require('../middleware/upload');
+const multer = require('multer');
+// const upload = require('../middleware/upload');
+
+const upload = multer();
 
 const controller = require('../controllers/upload.controller');
 
