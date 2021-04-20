@@ -1,7 +1,9 @@
+const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
 const Loan = db.loan;
 const FinePayment = db.fine_payment;
+const seq = db.sequelize;
 
 const returnBook = async (req, res) => {
   const { idLoan, returnDate } = req.body;
@@ -52,6 +54,32 @@ const returnBook = async (req, res) => {
   }
 };
 
+const getHistoryLoan = async (req, res) => {
+  const token = req.headers['x-access-token'];
+
+  console.log(token);
+  const tokenParts = token.split('.');
+  const encodedPayload = tokenParts[1];
+  const rawPayload = Buffer.from(encodedPayload, 'base64').toString();
+  const user = JSON.parse(rawPayload);
+  const { id } = user;
+  console.log(id);
+  try {
+    const historyLoan = await seq.query('select a.*, b.id as `finePayment.id`, b.receipt as `finePayment.receipt`, b.amount as `finePayment.amount` from loan a left join fine_payment b on a.id = b.id_loan where a.id_user = ?', {
+      replacements: [id],
+      type: QueryTypes.SELECT,
+      nest: true,
+    });
+    return res.send({ status: 'success', message: 'query berhasil', data: historyLoan });
+  } catch (err) {
+    return res.status(500).send({
+      status: 'fail',
+      message: err.message,
+    });
+  }
+};
+
 module.exports = {
   returnBook,
+  getHistoryLoan,
 };

@@ -137,12 +137,9 @@ const getBookLessThan2Years = async (req, res) => {
   try {
     const books = await seq.query('SELECT a.*, b.id as `category.id`, b.name as `category.name` FROM book a join category b on a.id_category = b.id where a.year >= ? limit 20',
       {
-        // model: Book,
-        // mapToModel: true,
         replacements: [yearNow - 2],
         type: QueryTypes.SELECT,
         nest: true,
-        // raw: true,
       });
     return res.send({ status: 'success', message: 'query berhasil', data: books });
   } catch (err) {
