@@ -6,13 +6,15 @@ const cloudinary = require('cloudinary').v2;
 const app = express();
 const port = 3000;
 
+require('dotenv').config({ path: path.resolve('./.env') });
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 cloudinary.config({
-  cloud_name: 'cembeliq',
-  api_key: '576668284399615',
-  api_secret: 'g0U_mMHyAyJeboRs4FC1E7zfRWg',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const corsOption = {
@@ -26,8 +28,6 @@ app.use(cors(corsOption));
 app.get('/', (req, res) => {
   res.send('Hello world!');
 });
-
-require('dotenv').config({ path: path.resolve('./.env') });
 
 app.use('/api', require('./routes'));
 
