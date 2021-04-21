@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+
 // const fs = require('fs');
 // const path = require('path');
 const cloudinary = require('cloudinary').v2;
@@ -6,7 +8,7 @@ const db = require('../models');
 
 const User = db.user;
 
-const uploadFile = async (req, res) => {
+const uploadFile = async (req, res, next) => {
   const streamUpload = () => new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
       (error, result) => {
@@ -30,7 +32,7 @@ const uploadFile = async (req, res) => {
     });
     return res.send({ status: 'success', message: 'File telah berhasil diupload' });
   } catch (err) {
-    return res.status(500).send({ status: 'fail', message: err.message });
+    next(err);
   }
 };
 // const uploadFile = async (req, res) => {

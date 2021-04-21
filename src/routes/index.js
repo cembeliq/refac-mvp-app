@@ -1,6 +1,6 @@
 const express = require('express');
 const { authJwt } = require('../middleware');
-const { handleError } = require('../utils/error');
+// const express = require('express');
 
 // Set The Express Router
 const router = express.Router();
@@ -24,11 +24,6 @@ router.use('/upload', [authJwt.verifyToken, authJwt.isAdmin], require('./upload.
 // The 404 Route (ALWAYS Keep this as the last route)
 router.use((req, res) => {
   res.status(404).json('endpoint is not found');
-});
-
-// eslint-disable-next-line no-unused-vars
-router.use((err, req, res, next) => {
-  handleError(err, res);
 });
 
 // Export Router

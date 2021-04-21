@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
@@ -5,7 +6,7 @@ const Book = db.book;
 const Category = db.category;
 const seq = db.sequelize;
 
-const createBook = async (req, res) => {
+const createBook = async (req, res, next) => {
   try {
     const book = await Book.create(req.body);
     return res.status(201).send({
@@ -16,14 +17,11 @@ const createBook = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const updateBook = async (req, res) => {
+const updateBook = async (req, res, next) => {
   try {
     const book = await Book.update(req.body, {
       where: {
@@ -46,14 +44,11 @@ const updateBook = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const deleteBook = async (req, res) => {
+const deleteBook = async (req, res, next) => {
   try {
     const book = await Book.destroy({
       where: {
@@ -76,14 +71,11 @@ const deleteBook = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getAllBook = async (req, res) => {
+const getAllBook = async (req, res, next) => {
   try {
     const books = await Book.findAll({
       include: [{ model: Category }],
@@ -94,14 +86,11 @@ const getAllBook = async (req, res) => {
       data: books,
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getBookById = async (req, res) => {
+const getBookById = async (req, res, next) => {
   try {
     const book = await Book.findOne({
       where: {
@@ -124,14 +113,11 @@ const getBookById = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getBookLessThan2Years = async (req, res) => {
+const getBookLessThan2Years = async (req, res, next) => {
   const yearNow = new Date().getFullYear();
 
   try {
@@ -143,7 +129,7 @@ const getBookLessThan2Years = async (req, res) => {
       });
     return res.send({ status: 'success', message: 'query berhasil', data: books });
   } catch (err) {
-    return res.send({ status: 'fail', message: err.message });
+    next(err);
   }
 };
 

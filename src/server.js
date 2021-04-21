@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const morgan = require('morgan');
 const cloudinary = require('cloudinary').v2;
+const { handleError } = require('./utils/error');
 
 const app = express();
 const port = 3000;
@@ -10,6 +12,7 @@ require('dotenv').config({ path: path.resolve('./.env') });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(morgan('combined'));
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -27,6 +30,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', require('./routes'));
+
+app.use(handleError);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost: ${port}`);

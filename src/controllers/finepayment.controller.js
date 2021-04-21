@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
 
@@ -5,7 +6,7 @@ const Loan = db.loan;
 const FinePayment = db.fine_payment;
 const seq = db.sequelize;
 
-const returnBook = async (req, res) => {
+const returnBook = async (req, res, next) => {
   const { idLoan, returnDate } = req.body;
   const rDate = new Date(returnDate);
   try {
@@ -47,14 +48,11 @@ const returnBook = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getHistoryLoan = async (req, res) => {
+const getHistoryLoan = async (req, res, next) => {
   const token = req.headers['x-access-token'];
 
   console.log(token);
@@ -72,10 +70,7 @@ const getHistoryLoan = async (req, res) => {
     });
     return res.send({ status: 'success', message: 'query berhasil', data: historyLoan });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 

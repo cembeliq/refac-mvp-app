@@ -1,8 +1,9 @@
+/* eslint-disable consistent-return */
 const db = require('../models');
 
 const Category = db.category;
 
-const createCategory = async (req, res) => {
+const createCategory = async (req, res, next) => {
   try {
     const category = await Category.create(req.body);
     return res.status(201).send({
@@ -13,14 +14,11 @@ const createCategory = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const updateCategory = async (req, res) => {
+const updateCategory = async (req, res, next) => {
   try {
     const category = await Category.update(req.body, {
       where: {
@@ -43,14 +41,11 @@ const updateCategory = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const deleteCategory = async (req, res) => {
+const deleteCategory = async (req, res, next) => {
   try {
     const category = await Category.destroy({
       where: {
@@ -73,14 +68,11 @@ const deleteCategory = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getAllCategory = async (req, res) => {
+const getAllCategory = async (req, res, next) => {
   try {
     const books = await Category.findAll({});
     return res.send({
@@ -89,14 +81,11 @@ const getAllCategory = async (req, res) => {
       data: books,
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getCategoryById = async (req, res) => {
+const getCategoryById = async (req, res, next) => {
   try {
     const category = await Category.findOne({
       where: {
@@ -117,10 +106,7 @@ const getCategoryById = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 

@@ -1,9 +1,10 @@
+/* eslint-disable consistent-return */
 const { Op } = require('sequelize');
 const db = require('../models');
 
 const Loan = db.loan;
 
-const createLoan = async (req, res) => {
+const createLoan = async (req, res, next) => {
   const { borrowedDate } = req.body;
   const nDate = new Date(borrowedDate);
   try {
@@ -28,14 +29,11 @@ const createLoan = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const updateLoan = async (req, res) => {
+const updateLoan = async (req, res, next) => {
   try {
     const loan = await Loan.update(req.body, {
       where: {
@@ -58,14 +56,11 @@ const updateLoan = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const deleteLoan = async (req, res) => {
+const deleteLoan = async (req, res, next) => {
   try {
     const loan = await Loan.destroy({
       where: {
@@ -88,14 +83,11 @@ const deleteLoan = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getAllLoan = async (req, res) => {
+const getAllLoan = async (req, res, next) => {
   try {
     const books = await Loan.findAll({});
     return res.send({
@@ -104,14 +96,11 @@ const getAllLoan = async (req, res) => {
       data: books,
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
-const getLoanById = async (req, res) => {
+const getLoanById = async (req, res, next) => {
   try {
     const loan = await Loan.findOne({
       where: {
@@ -132,10 +121,7 @@ const getLoanById = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).send({
-      status: 'fail',
-      message: err.message,
-    });
+    next(err);
   }
 };
 
