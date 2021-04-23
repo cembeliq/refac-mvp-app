@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
+const { success } = require('../utils/response-api');
 
 const Book = db.book;
 const Category = db.category;
@@ -127,7 +128,7 @@ const getBookLessThan2Years = async (req, res, next) => {
         type: QueryTypes.SELECT,
         nest: true,
       });
-    return res.send({ status: 'success', message: 'query berhasil', data: books });
+    return res.send(success('query berhasil', books, res.statusCode));
   } catch (err) {
     next(err);
   }
