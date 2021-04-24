@@ -1,39 +1,26 @@
+/* eslint-disable no-unused-vars */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('book', {
+    await queryInterface.createTable('transactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      description: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      author: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
-      year: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      idCategory: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        field: 'id_category',
-      },
-      stock: {
-        allowNull: false,
+      participant_id: {
         type: Sequelize.INTEGER,
       },
-      status: {
-        allowNull: false,
+      creator_id: {
+        type: Sequelize.INTEGER,
+      },
+      event_id: {
+        type: Sequelize.INTEGER,
+      },
+      amount: {
+        type: Sequelize.DOUBLE,
+      },
+      status_payment: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -53,7 +40,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface) => {
-    await queryInterface.dropTable('book');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('transactions');
   },
 };

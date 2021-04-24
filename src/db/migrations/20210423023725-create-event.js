@@ -1,35 +1,48 @@
+/* eslint-disable no-unused-vars */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('loan', {
+    await queryInterface.createTable('events', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      idUser: {
-        allowNull: false,
+      creator_id: {
         type: Sequelize.INTEGER,
-        field: 'id_user',
       },
-      idBook: {
-        allowNull: false,
+      title_event: {
+        type: Sequelize.STRING,
+      },
+      link_webinar: {
+        type: Sequelize.STRING,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      banner: {
+        type: Sequelize.TEXT,
+      },
+      price: {
+        type: Sequelize.DOUBLE,
+      },
+      quantity: {
         type: Sequelize.INTEGER,
-        field: 'id_book',
       },
-      borrowedDate: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        field: 'borrowed_date',
+      status: {
+        type: Sequelize.STRING,
       },
-      dueDate: {
-        allowNull: false,
+      event_start_date: {
         type: Sequelize.DATE,
-        field: 'due_date',
       },
-      returnDate: {
+      event_end_date: {
         type: Sequelize.DATE,
-        field: 'return_date',
+      },
+      campaign_start_date: {
+        type: Sequelize.DATE,
+      },
+      campaign_end_date: {
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
@@ -48,7 +61,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface) => {
-    await queryInterface.dropTable('loan');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('events');
   },
 };

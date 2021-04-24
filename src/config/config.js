@@ -1,24 +1,23 @@
-// const fs = require('fs');
-// const path = require('path');
+require('dotenv').config(); // this is important!
 
 module.exports = {
   development: {
-    username: 'root',
-    password: 'cembeliq',
-    database: 'db_rental_buku',
-    host: '172.17.0.2',
-    port: 3306,
-    dialect: 'mariadb',
+    username: process.env.DEV_DB_USERNAME,
+    password: process.env.DEV_DB_PASSWORD,
+    database: process.env.DEV_DB_NAME,
+    host: process.env.DEV_DB_HOSTNAME,
+    port: process.env.DEV_DB_PORT,
+    dialect: 'mysql',
     dialectOptions: {
       bigNumberStrings: true,
     },
     pool: {
-      max: 10,
-      min: 1,
-      acquire: 10,
-      idle: 10,
+      max: 5,
+      min: 0,
+      idle: 10000,
+      acquire: 20000,
     },
-    timezone: 'Etc/GMT+7',
+    timezone: '+07:00',
   },
   test: {
     username: process.env.CI_DB_USERNAME,

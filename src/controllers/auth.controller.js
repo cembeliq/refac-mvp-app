@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 // const path = require('path');
 const db = require('../models');
 
-const User = db.user;
+const User = db.users;
 const sendMailRegister = require('../utils/mailer_register');
 
 exports.register = (req, res) => {

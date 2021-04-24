@@ -9,6 +9,7 @@ const app = express();
 const port = 3000;
 
 require('dotenv').config({ path: path.resolve('./.env') });
+require('./utils/redis');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -29,7 +30,7 @@ app.get('/', (req, res) => {
   res.send('Hello world!');
 });
 
-app.use('/api', require('./routes'));
+app.use('/api/v1', require('./routes'));
 
 app.use(handleError);
 
